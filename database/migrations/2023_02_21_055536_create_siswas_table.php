@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('no_telp');
             $table->foreignId('id_spp')->default('1');
             $table->timestamps();
+
+            $table->foreign('id_kelas')->references('id')->on('kelas');
         });
     }
 

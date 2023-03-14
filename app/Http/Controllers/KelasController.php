@@ -12,6 +12,7 @@ class KelasController extends Controller
         $title = 'Data Kelas';
 
         $kelas = Kelas::all();
+
         return view('contents.kelas.index', compact('kelas'));
     }
     

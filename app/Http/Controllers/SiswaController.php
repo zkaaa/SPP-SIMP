@@ -13,6 +13,7 @@ class SiswaController extends Controller
         $title = 'Data Siswa';
 
         $siswa = Siswa::all();
+        
         return view('contents.siswa.index', compact('siswa'));
     }
 
