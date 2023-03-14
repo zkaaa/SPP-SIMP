@@ -39,15 +39,7 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-        ],
-        'petugas' => [
-            'driver' => 'session',
-            'provider' => 'petugas',
-        ],
-        'siswa' => [
-            'driver' => 'session',
-            'provider' => 'siswa',
-        ],
+        ]
     ],
 
     /*
@@ -71,16 +63,7 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
-        ],
-        'petugas' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Petugas::class,
-        ],
-        'siswa' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Siswa::class,
-        ],
-
+        ]
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
