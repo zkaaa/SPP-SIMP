@@ -124,7 +124,7 @@
             <td>{{ $s->nisn }}</td>
             <td>{{ $s->nis }}</td>
             <td>{{ $s->nama }}</td>
-            <td>{{ $s->id_kelas }}</td>
+            <td>{{ $s->kelas->nama_kelas }}</td>
             <td>{{ $s->alamat }}</td>
             <td>{{ $s->no_telp }}</td>
           </tr>

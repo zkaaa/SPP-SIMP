@@ -104,11 +104,3 @@ Route::prefix('history')->group(function()
     Route::get('/generatepdf', [HistoryController::class, 'generatepdf']);
 });
 
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
