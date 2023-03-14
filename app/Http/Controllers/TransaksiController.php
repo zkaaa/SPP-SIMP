@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 // use App\Models\Month;
+use App\Models\Spp;
+use App\Models\User;
 use App\Models\Siswa;
 use App\Models\Pembayaran;
-use App\Models\Spp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,7 @@ class TransaksiController extends Controller
         $title = 'Data Transaksi';
 
         // $pembayaran = Month::get();
-        $siswa = Siswa::all();
+        $siswa = User::role('siswa')->get();
         $spp = Spp::all();
 
         return view('contents.transaksi.index', compact('siswa', 'spp'));
@@ -25,17 +26,9 @@ class TransaksiController extends Controller
     public function store(Request $request)
     {
 
-        // $request->validate([
-        //     'nama' => 'required',
-        //     'tanggal' => 'required',
-        //     'jumlah_bayar' => 'required',
-        //     'bulan_dibayar' => 'required',
-        //     'tahun_dibayar' => 'required',
-        // ]);
-        // dd($request);
         Pembayaran::create([
-            'id_petugas' => Auth::guard('petugas')->user()->id_petugas,
-            'id_siswa' => $request->nama,
+            'id_petugas' => Auth::user()->id,
+            'id_siswa' => $request->namaSiswa,
             // 'id_month' => $request->id_month,
             'tanggal' => $request->tanggal,
             'jumlah_bayar' => $request->jumlah_dibayar,

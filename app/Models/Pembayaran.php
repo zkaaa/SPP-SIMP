@@ -28,12 +28,12 @@ class Pembayaran extends Model
 
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class, 'id_siswa');
+        return $this->belongsTo(User::class, 'id_siswa');
     }
 
     public function petugas()
     {
-        return $this->belongsTo(Petugas::class, 'id_petugas');
+        return $this->belongsTo(User::class, 'id_petugas');
     }
 
     // public function month()

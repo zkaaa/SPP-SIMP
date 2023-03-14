@@ -10,22 +10,22 @@
         <form action="/petugas/store" method="POST">
           @csrf
           <div class="row mb-3">
-            <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Username</label>
+            <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Email</label>
             <div class="col-sm-10">
               <div class="input-group input-group-merge">
                 <span class="input-group-text"><i class="bx bx-user"></i></span>
                 <input
                   type="text"
-                  name="username"
+                  name="email"
                   id="basic-icon-default-email"
                   class="form-control"
-                  placeholder="Username"
-                  aria-label="Username"
+                  placeholder="Email"
+                  aria-label="email"
                   aria-describedby="basic-icon-default-email2">
               </div>
-              @if($errors->has('username'))
+              @if($errors->has('email'))
                 <div class="text-danger">
-                  {{ $errors->first('username')}}
+                  {{ $errors->first('email')}}
                 </div>
               @endif
             </div>
@@ -90,8 +90,9 @@
                   aria-label="Role"
                   aria-describedby="basic-icon-default-email2">
                   <option selected disabled>Pilih Level</option>
-                  <option value="petugas">Petugas</option>
-                  <option value="admin">Admin</option>
+                  @foreach ($role as $item)
+                  <option value="{{$item->name}}">{{$item->name}}</option>
+                  @endforeach
                 </select>
               </div>
               @if($errors->has('level'))

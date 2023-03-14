@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Petugas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class PetugasController extends Controller
 {
@@ -12,7 +14,7 @@ class PetugasController extends Controller
     {
         $title = 'Data Petugas';
 
-        $petugas = Petugas::all();
+        $petugas = User::role(['petugas', 'admin'])->get();
         return view('contents.petugas.index', compact('petugas'));
     }
     
@@ -20,26 +22,34 @@ class PetugasController extends Controller
     {
         $title = 'Tambah Petugas';
 
-        $level = Petugas::all();
-        return view('contents.petugas.tambah', compact('level'));
+        $level = User::all();
+        $role = Role::whereNotIn('name', ['siswa'])->get();
+        return view('contents.petugas.tambah', compact('level', 'role'));
     }
 
     public function store(Request $request)
     {
 
         $request->validate([
-            'username' => 'required',
+            'email' => 'required',
             'password' => 'required',
             'nama_petugas' => 'required',
             'level' => 'required',
         ]);
 
-        Petugas::create([
-            'username' => $request->username,
+        $user = User::create([
+            'nama' => $request->nama_petugas,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
-            'nama_petugas' => $request->nama_petugas,
-            'level' => $request->level,
         ]);
+
+        if ($request->level == 'petugas') {
+            $role = User::find($user->id);
+            $role->syncRoles(['petugas']);
+        }elseif($request->level == 'admin') {
+            $role = User::find($user->id);
+            $role->syncRoles(['admin']);
+        }
         
         return redirect('/petugas')->with('success','Petugas berhasil ditambahkan');
     }
@@ -48,25 +58,32 @@ class PetugasController extends Controller
     {
         $title = 'Edit Petugas';
 
-        $petugas = Petugas::where('id_petugas', $id_petugas)->first();
-        return view('contents.petugas.edit', compact('petugas'));
+        $petugas = User::where('id', $id_petugas)->first();
+        $role = Role::whereNotIn('name', ['siswa'])->get();
+        return view('contents.petugas.edit', compact('petugas', 'role'));
     }
 
     public function update(Request $request, $id_petugas)
     {
-        $validatedData = $request->validate([
-            'username' => 'required',
-            'nama_petugas' => 'required',
-            'level' => 'required',
+
+        $user = User::where('id', $id_petugas)->update([
+            'nama' => $request->nama
         ]);
 
-        Petugas::where('id_petugas', $id_petugas)->update($validatedData);
+        if ($request->level == 'petugas') {
+            $user = User::find($id_petugas);
+            $user->syncRoles(['petugas']);
+        }elseif($request->level == 'admin') {
+            $user = User::find($id_petugas);
+            $user->syncRoles(['admin']);
+        }
+        
         return redirect('/petugas')->with('success', 'Data berhasil dirubah');
     }
 
     public function delete($id_petugas)
     {
-        Petugas::where('id_petugas', $id_petugas)->delete();
+        User::where('id', $id_petugas)->delete();
         return redirect('/petugas')->with('success', 'Data berhasil dihapus');
     }
 }

@@ -142,17 +142,15 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Username</th>
             <th>Nama</th>
-            <th>Role</th>
+            <th>Ditambahkan Pada</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
           @foreach ($petugas as $p)
           <tr>
-            <td>{{ $p->username }}</td>
-            <td>{{ $p->nama_petugas }}</td>
-            <td>{{ $p->level }}</td>
+            <td>{{ $p->nama }}</td>
+            <td>{{ $p->created_at->format('d-m-Y') }}</td>
           </tr>
           @endforeach
         </tbody>

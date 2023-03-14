@@ -17,17 +17,23 @@ class AuthController extends Controller
     {
         // dd($request->all());
         $credentials = $request->validate([
-            'username' => ['required'],
+            'email' => ['required'],
             'password' => ['required'],
         ]);
         
-        if (Auth::guard('petugas')->attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            
-            return redirect()->intended('/dashboard');
+            if (Auth::user()->hasRole('admin')) {
+                return redirect()->intended('/dashboard');
+            }elseif (Auth::user()->hasRole('petugas')) {
+                return redirect()->intended('/dashboard');
+            }elseif (Auth::user()->hasRole('siswa')) {
+                return redirect()->intended('/home');
+            }
+        }else {
+            return back()->with('Login error', 'login failed');
         }
         
-        return redirect('/login')->with('Login error', 'login failed');
     }
 
     public function logout()

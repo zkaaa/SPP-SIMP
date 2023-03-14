@@ -14,7 +14,7 @@
         <div class="col-md-10">
           <select
                   type="select"
-                  name="nama"
+                  name="namaSiswa"
                   id="basic-icon-default-email"
                   class="form-control"
                   placeholder="nama"
@@ -22,13 +22,13 @@
                   aria-describedby="basic-icon-default-email2">
                   <option selected disabled>Pilih siswa</option>
                   @foreach ($siswa as $v)
-                  <option value="{{ $v->nisn }}" >{{ $v->nama }}</option>
+                  <option value="{{ $v->id }}" >{{ $v->nama }}</option>
                   @endforeach
                 </select>
 
-          @if($errors->has('nama'))
+          @if($errors->has('namaSiswa'))
             <div class="text-danger">
-              {{ $errors->first('nama') }}
+              {{ $errors->first('namaSiswa') }}
             </div>
           @endif
 

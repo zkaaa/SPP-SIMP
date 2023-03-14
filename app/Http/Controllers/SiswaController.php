@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Kelas;
-use App\Models\Siswa;
 use Illuminate\Http\Request;
 
 class SiswaController extends Controller
 {
+    // User
+    public function home()
+    {
+        return view('contents.home.index');
+    }
+    // /User
     public function index()
     {
         $title = 'Data Siswa';
 
-        $siswa = Siswa::all();
+        $siswa = User::role('siswa')->get();
         return view('contents.siswa.index', compact('siswa'));
     }
 
@@ -35,10 +41,10 @@ class SiswaController extends Controller
             'no_telp' => 'required',
         ]);
 
-        Siswa::create([
+        User::create([
+            'nama' => $request->nama,
             'nisn' => $request->nisn,
             'nis' => $request->nis,
-            'nama' => $request->nama,
             'id_kelas' => $request->id_kelas,
             'alamat' => $request->alamat,
             'no_telp' => $request->no_telp,

@@ -27,8 +27,10 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">{{ Auth::guard('petugas')->user()->nama_petugas }}</span>
-                            <small class="text-muted">{{ Auth::guard('petugas')->user()->level }}</small>
+                            <span class="fw-semibold d-block">{{ Auth::user()->nama }}</span>
+                            <small class="text-muted"> @foreach(Auth::user()->getRoleNames() as $role)
+                                  {{ $role }}
+                          @endforeach</small>
                           </div>
                         </div>
                       </a>

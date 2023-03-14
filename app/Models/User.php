@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles ;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +22,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'nisn',
+        'nis',
+        'nama', 
+        'id_kelas', 
+        'alamat', 
+        'no_telp', 
+        'id_spp'
     ];
 
     /**
@@ -42,4 +49,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function pembayaran()
+    {
+        return $this->hasMany(Pembayaran::class, 'nisn');
+    }
+
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'id_kelas');
+    }
+
+    public function spp()
+    {
+        return $this->belongsTo(Spp::class, 'id_spp');
+    }
 }

@@ -17,6 +17,6 @@ class Spp extends Model
 
     public function siswa()
     {
-        return $this->hasOne(Siswa::class, 'id_spp');
+        return $this->hasOne(User::class, 'id_spp');
     }
 }

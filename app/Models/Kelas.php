@@ -21,6 +21,6 @@ class Kelas extends Model
 
     public function siswa(): HasMany
     {
-        return $this->hasMany(Siswa::class);
+        return $this->hasMany(User::class);
     }
 }

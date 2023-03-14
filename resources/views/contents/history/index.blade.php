@@ -19,7 +19,7 @@
         <tbody class="table-border-bottom-0">
         @foreach ($history as $h)
         <tr>
-            <td>{{ $h->petugas->nama_petugas }}</td>
+            <td>{{ $h->petugas->nama }}</td>
             <td>{{ $h->siswa->nama}}</td>
             <td>{{ $h->tanggal   }}</td>
             <td>{{ $h->bulan_dibayar }}</td>

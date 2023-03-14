@@ -94,7 +94,7 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Username</label>
-                                    <input type="text" class="form-control" id="NIS" name="username" placeholder="username" autofocus>
+                                    <input type="text" class="form-control" id="email" name="email" placeholder="username" autofocus>
                                 </div>
                                 <div class="mb-3 form-password-toggle">
                                     <div class="d-flex justify-content-between">
